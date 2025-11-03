@@ -3,3 +3,5 @@ https://www.kaggle.com/datasets/iabhishekofficial/mobile-price-classification?re
 
 Relationship between mobile specs and price:
 My analysis shows that RAM is the strongest predictor of price range. This suggests that memory capacity is a primary factor differentiating budget and premium phones. Screen resolution and battery power also contribute, reflecting consumer preference for visual quality and longer usage time. However, connectivity features such as Bluetooth and WiFi have minimal impact on price.
+
+using scikit-learn version 1.3.0
