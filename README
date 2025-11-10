@@ -1,6 +1,6 @@
-Deployed site: https://mobilepricepredictionanalytics.streamlit.app/ 
-
 To run project locally:
+1. cd to src/app
+2. run: uvicorn app:app --reload
 3. cd to root directory
 4. run: streamlit run app_ui.py
 
