@@ -1,5 +1,12 @@
 import streamlit as st
-import requests
+import joblib
+import numpy as np
+
+@st.cache_resource
+def load_model():
+    return joblib.load("models/classifier.pkl") 
+
+model = load_model()
 
 st.title("📱 Mobile Price Range Predictor")
 st.write("Enter the phone specifications below to predict the price category.")
@@ -27,33 +34,10 @@ touch_screen = st.selectbox("Touch Screen", [0,1])
 wifi = st.selectbox("WiFi", [0,1])
 
 if st.button("Predict Price Range"):
-    data = {
-        "battery_power": battery_power,
-        "blue": blue,
-        "clock_speed": clock_speed,
-        "dual_sim": dual_sim,
-        "fc": fc,
-        "four_g": four_g,
-        "int_memory": int_memory,
-        "m_dep": m_dep,
-        "mobile_wt": mobile_wt,
-        "n_cores": n_cores,
-        "pc": pc,
-        "px_height": px_height,
-        "px_width": px_width,
-        "ram": ram,
-        "sc_h": sc_h,
-        "sc_w": sc_w,
-        "talk_time": talk_time,
-        "three_g": three_g,
-        "touch_screen": touch_screen,
-        "wifi": wifi
-    }
+    features = np.array([[ battery_power, blue, clock_speed, dual_sim, fc, four_g, int_memory, m_dep, 
+                          mobile_wt, n_cores, pc, px_height, px_width, ram, sc_h, sc_w, talk_time,three_g, 
+                          touch_screen, wifi]])
 
-    response = requests.post("http://127.0.0.1:8000/predict", json=data)
-    
-    if response.status_code == 200:
-        result = response.json()["predicted_price_range"]
-        st.success(f"📊 Predicted Price Category: **{result}** (0=Low, 1=Medium, 2=High, 3=Premium)")
-    else:
-        st.error("Error: Could not get prediction from API.")
+    prediction = model.predict(features)[0]
+
+    st.success(f"📊 Predicted Price Category: **{prediction}** (0=Low, 1=Medium, 2=High, 3=Premium)")

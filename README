@@ -1,3 +1,9 @@
+Deployed site: https://mobilepricepredictionanalytics.streamlit.app/ 
+
+To run project locally:
+3. cd to root directory
+4. run: streamlit run app_ui.py
+
 Dataset:
 https://www.kaggle.com/datasets/iabhishekofficial/mobile-price-classification?resource=download
 
