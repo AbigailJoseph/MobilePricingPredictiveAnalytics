@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: mobile-price-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn src.api.app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+
+  - type: web
+    name: mobile-price-ui
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app_ui.py --server.port $PORT --server.address 0.0.0.0
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: API_URL
+        value: https://mobile-price-api.onrender.com

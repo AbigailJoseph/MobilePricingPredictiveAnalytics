@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import os
 
 st.title("📱 Mobile Price Range Predictor")
 st.write("Enter the phone specifications below to predict the price category.")
@@ -50,7 +51,8 @@ if st.button("Predict Price Range"):
         "wifi": wifi
     }
 
-    response = requests.post("http://127.0.0.1:8000/predict", json=data)
+    api_url = os.getenv("API_URL", "http://127.0.0.1:8000")
+    response = requests.post(f"{api_url}/predict", json=data)
     
     if response.status_code == 200:
         result = response.json()["predicted_price_range"]
